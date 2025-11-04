@@ -34,5 +34,8 @@
 
     - name: Show verification output
       debug:
-        msg: "{{ item.key }} → {{ verify_result.results[loop.index0].stdout }}"
-      loop: "{{ software | dict2items }}"
+        msg: "{{ item.item.key }} => {{ item.stdout }}"
+      loop: "{{ verification.results }}"
+      loop_control:
+        label: "{{ item.item.key }}"
+
