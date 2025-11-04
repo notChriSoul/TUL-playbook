@@ -1,4 +1,11 @@
 ---
-git_package: git
-docker_package: docker
-python_package: python
+software:
+  git:
+    name: git
+    verify: git --version
+  docker:
+    name: docker
+    verify: docker --version
+  python:
+    name: python
+    verify: python --version
