@@ -15,9 +15,12 @@
         - "vars/{{ ansible_os_family }}.yml"
         - "vars/default.yml"
 
-    - name: Install Git package
+    - name: Install development tools
       package:
-        name: "{{ git_package }}"
+        name:
+          - "{{ git_package }}"
+          - "{{ docker_package }}"
+          - "{{ python_package }}"
         state: present
 
     - name: Verify Git installation
