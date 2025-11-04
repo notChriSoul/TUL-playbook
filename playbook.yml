@@ -15,18 +15,24 @@
         - "vars/{{ ansible_os_family }}.yml"
         - "vars/default.yml"
 
-    - name: Install development tools
+    - name: Install required packages
       package:
-        name:
-          - "{{ git_package }}"
-          - "{{ docker_package }}"
-          - "{{ python_package }}"
+        name: "{{ item.value.name }}"
         state: present
+      loop: "{{ software | dict2items }}"
+      loop_control:
+        label: "{{ item.key }}"
 
-    - name: Verify Git installation
-      command: git --version
-      register: git_version
+    - name: Verify installed software
+      command: "{{ item.value.verify }}"
+      register: verify_result
       changed_when: false
+      failed_when: verify_result.rc != 0
+      loop: "{{ software | dict2items }}"
+      loop_control:
+        label: "{{ item.key }}"
 
-    - debug:
-        msg: "Installed Git version: {{ git_version.stdout }}"
+    - name: Show verification output
+      debug:
+        msg: "{{ item.key }} → {{ verify_result.results[loop.index0].stdout }}"
+      loop: "{{ software | dict2items }}"
