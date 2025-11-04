@@ -35,7 +35,7 @@
     - name: Show verification output
       debug:
         msg: "{{ item.item.key }} => {{ item.stdout }}"
-      loop: "{{ verification.results }}"
+      loop: "{{ verification_results.results }}"
       loop_control:
         label: "{{ item.item.key }}"
 
