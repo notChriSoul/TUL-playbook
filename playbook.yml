@@ -25,9 +25,8 @@
 
     - name: Verify installed software
       command: "{{ item.value.verify }}"
-      register: verify_result
+      register: verification_results
       changed_when: false
-      failed_when: verify_result.rc != 0
       loop: "{{ software | dict2items }}"
       loop_control:
         label: "{{ item.key }}"
@@ -38,4 +37,5 @@
       loop: "{{ verification_results.results }}"
       loop_control:
         label: "{{ item.item.key }}"
+
 
