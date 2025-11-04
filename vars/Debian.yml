@@ -1,2 +1,4 @@
 ---
 git_package: git
+docker_package: docker.io
+python_package: python3
