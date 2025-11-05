@@ -13,3 +13,7 @@ https://github.com/ansible/ansible/blob/37ae2435878b7dd76b812328878be620a93a30c9
             SmartOS = 'Solaris', AIX = 'AIX', Alpine = 'Alpine', MacOSX = 'Darwin',
             FreeBSD = 'FreeBSD', HPUX = 'HP-UX'
         )
+
+
+To run the playbook locally use (administrator privileges needed)
+```ansible-playbook -i "localhost," -c local playbook.yml```

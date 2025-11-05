@@ -37,5 +37,3 @@
       loop: "{{ verification_results.results }}"
       loop_control:
         label: "{{ item.item.key }}"
-
-
