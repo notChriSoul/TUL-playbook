@@ -15,13 +15,35 @@
         - "vars/{{ ansible_os_family }}.yml"
         - "vars/default.yml"
 
-    - name: Install required packages
-      package:
+    - name: Install packages on RedHat family using dnf
+      ansible.builtin.dnf:
         name: "{{ item.value.name }}"
         state: present
+        use_backend: dnf
       loop: "{{ software | dict2items }}"
       loop_control:
         label: "{{ item.key }}"
+      when: ansible_os_family == "RedHat"
+
+    - name: Install packages on Debian family using apt
+      ansible.builtin.apt:
+        name: "{{ item.value.name }}"
+        state: present
+        update_cache: yes
+      loop: "{{ software | dict2items }}"
+      loop_control:
+        label: "{{ item.key }}"
+      when: ansible_os_family == "Debian"
+
+    - name: Install packages on Arch family using pacman
+      ansible.builtin.pacman:
+        name: "{{ item.value.name }}"
+        state: present
+        update_cache: yes
+      loop: "{{ software | dict2items }}"
+      loop_control:
+        label: "{{ item.key }}"
+      when: ansible_os_family == "Archlinux"
 
     - name: Verify installed software
       command: "{{ item.value.verify }}"
