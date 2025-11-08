@@ -49,6 +49,8 @@
       command: "{{ item.value.verify }}"
       register: verification_results
       changed_when: false
+      become: false
+      ignore_errors: yes
       loop: "{{ software | dict2items }}"
       loop_control:
         label: "{{ item.key }}"

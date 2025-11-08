@@ -9,3 +9,36 @@ software:
   python:
     name: python3
     verify: python3 --version
+  g++:
+    name: gcc-c++
+    verify: g++ --version
+  jdk:
+    name: java-25-openjdk-devel
+    verify: java --version
+  maven:
+    name: maven
+    verify: mvn --version
+  firefox:
+    name: firefox
+    verify: firefox --version
+  chromium:
+    name: chromium
+    verify: chromium-browser --version
+  thunderbird:
+    name: thunderbird
+    verify: thunderbird --version
+  darktable:
+    name: darktable
+    verify: darktable --version
+  gimp:
+    name: gimp
+    verify: gimp --version
+  vlc:
+    name: vlc
+    verify: vlc --version
+  audacious:
+    name: audacious
+    verify: audacious --version
+  calibre:
+    name: calibre
+    verify: calibre --version
