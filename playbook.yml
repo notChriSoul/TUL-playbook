@@ -45,19 +45,13 @@
         label: "{{ item.key }}"
       when: ansible_os_family == "Archlinux"
 
-    - name: Verify installed software
-      command: "{{ item.value.verify }}"
-      register: verification_results
-      changed_when: false
-      become: false
-      ignore_errors: yes
+    - name: Gather the package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Show installation status using package facts
+      ansible.builtin.debug:
+        msg: "{{ item.key }} => {{ 'INSTALLED' if item.value.name in ansible_facts.packages else 'NOT INSTALLED' }}"
       loop: "{{ software | dict2items }}"
       loop_control:
         label: "{{ item.key }}"
-
-    - name: Show verification output
-      debug:
-        msg: "{{ item.item.key }} => {{ item.stdout }}"
-      loop: "{{ verification_results.results }}"
-      loop_control:
-        label: "{{ item.item.key }}"
