@@ -1,44 +1,59 @@
 ---
 software:
+  # Development tools
   git:
     name: git
-    verify: git --version
-  docker:
-    name: docker
-    verify: docker --version
-  python:
-    name: python
-    verify: python --version
-  g++:
-    name: gcc
-    verify: g++ --version
+  c++-devel:
+    name: base-devel
   jdk:
     name: jdk-openjdk
-    verify: java --version
   maven:
     name: maven
-    verify: mvn --version
+  python:
+    name: python
+  python-pip:
+    name: python-pip
+  
+  # Browsers
   firefox:
     name: firefox
-    verify: firefox --version
   chromium:
     name: chromium
-    verify: chromium --version
+  
+  # Cloud & Containers
+  docker:
+    name: docker
+  onedrive:
+    name: onedrive-abraunegg
+  
+  # Communication
   thunderbird:
     name: thunderbird
-    verify: thunderbird --version
+  davmail:
+    name: davmail
+  
+  # Gaming
+  lutris:
+    name: lutris
+  
+  # Multimedia
   darktable:
     name: darktable
-    verify: darktable --version
   gimp:
     name: gimp
-    verify: gimp --version
   vlc:
     name: vlc
-    verify: vlc --version
   audacious:
     name: audacious
-    verify: audacious --version
+  
+  # Utilities
   calibre:
     name: calibre
-    verify: calibre --version
+  stacer:
+    name: stacer
+  bleachbit:
+    name: bleachbit
+  openvpn:
+    name: openvpn
+  openvpn-gui:
+    name: networkmanager-openvpn

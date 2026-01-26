@@ -15,6 +15,42 @@
         - "vars/{{ ansible_os_family }}.yml"
         - "vars/default.yml"
 
+    - name: Include Flatpak variables
+      include_vars:
+        file: vars/Flatpak.yml
+    
+    - name: Install flatpak on Fedora
+      ansible.builtin.dnf:
+        name: flatpak
+        state: present
+        use_backend: dnf
+      when: ansible_os_family == "RedHat"
+
+    - name: Install flatpak on Debian
+      ansible.builtin.apt:
+        name: flatpak
+        state: present
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Install flatpak on Arch
+      ansible.builtin.pacman:
+        name: flatpak
+        state: present
+        update_cache: yes
+      when: ansible_os_family == "Archlinux"
+    
+    - name: Add Flathub repository
+      command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+      changed_when: false
+
+    - name: Install Flatpak applications
+      ansible.builtin.command:
+        cmd: flatpak install -y flathub {{ item.value.name }}
+      loop: "{{ flatpak_apps | dict2items }}"
+      loop_control:
+        label: "{{ item.key }}"
+
     - name: Install packages on RedHat family using dnf
       ansible.builtin.dnf:
         name: "{{ item.value.name }}"
