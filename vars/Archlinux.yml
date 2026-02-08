@@ -1,6 +1,5 @@
 ---
 software:
-  # Development tools
   git:
     name: git
   c++-devel:
@@ -14,29 +13,17 @@ software:
   python-pip:
     name: python-pip
   
-  # Browsers
   firefox:
     name: firefox
   chromium:
     name: chromium
   
-  # Cloud & Containers
   docker:
     name: docker
-  onedrive:
-    name: onedrive-abraunegg
   
-  # Communication
   thunderbird:
     name: thunderbird
-  davmail:
-    name: davmail
-  
-  # Gaming
-  lutris:
-    name: lutris
-  
-  # Multimedia
+
   darktable:
     name: darktable
   gimp:
@@ -46,14 +33,9 @@ software:
   audacious:
     name: audacious
   
-  # Utilities
   calibre:
     name: calibre
-  stacer:
-    name: stacer
   bleachbit:
     name: bleachbit
   openvpn:
     name: openvpn
-  openvpn-gui:
-    name: networkmanager-openvpn

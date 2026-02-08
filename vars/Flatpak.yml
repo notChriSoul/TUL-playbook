@@ -1,3 +1,5 @@
 flatpak_apps:
   discord:
     name: com.discordapp.Discord
+  lutris:
+    name: net.lutris.Lutris

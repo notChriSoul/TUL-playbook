@@ -18,8 +18,9 @@
     - name: Include Flatpak variables
       include_vars:
         file: vars/Flatpak.yml
-    
+
     - name: Install flatpak on Fedora
+      ignore_errors: true
       ansible.builtin.dnf:
         name: flatpak
         state: present
@@ -27,6 +28,7 @@
       when: ansible_os_family == "RedHat"
 
     - name: Install flatpak on Debian
+      ignore_errors: true
       ansible.builtin.apt:
         name: flatpak
         state: present
@@ -34,6 +36,7 @@
       when: ansible_os_family == "Debian"
 
     - name: Install flatpak on Arch
+      ignore_errors: true
       ansible.builtin.pacman:
         name: flatpak
         state: present
@@ -45,13 +48,21 @@
       changed_when: false
 
     - name: Install Flatpak applications
+      ignore_errors: true
       ansible.builtin.command:
         cmd: flatpak install -y flathub {{ item.value.name }}
       loop: "{{ flatpak_apps | dict2items }}"
       loop_control:
         label: "{{ item.key }}"
 
+    - name: Enable DavMail COPR repository (Fedora)
+      ansible.builtin.command: dnf -y copr enable mguessan/davmail
+      args:
+        creates: /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:mguessan:davmail.repo
+      when: ansible_os_family == "RedHat"
+
     - name: Install packages on RedHat family using dnf
+      ignore_errors: true
       ansible.builtin.dnf:
         name: "{{ item.value.name }}"
         state: present
@@ -62,6 +73,7 @@
       when: ansible_os_family == "RedHat"
 
     - name: Install packages on Debian family using apt
+      ignore_errors: true
       ansible.builtin.apt:
         name: "{{ item.value.name }}"
         state: present
@@ -72,6 +84,7 @@
       when: ansible_os_family == "Debian"
 
     - name: Install packages on Arch family using pacman
+      ignore_errors: true
       ansible.builtin.pacman:
         name: "{{ item.value.name }}"
         state: present
