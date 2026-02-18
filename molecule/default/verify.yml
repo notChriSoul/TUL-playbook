@@ -1,0 +1,13 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: true
+
+  tasks:
+    - name: Gather package facts
+      package_facts:
+
+    - name: Assert git installed
+      assert:
+        that:
+          - "'git' in ansible_facts.packages"

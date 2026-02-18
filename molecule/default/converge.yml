@@ -1,0 +1,29 @@
+- name: Converge
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Create destination folder
+      file:
+        path: /tmp/project
+        state: directory
+        mode: '0755'
+
+    - name: Copy playbook
+      copy:
+        src: ../../playbook.yml
+        dest: /tmp/project/playbook.yml
+
+    - name: Copy vars
+      copy:
+        src: ../../vars
+        dest: /tmp/project/vars
+
+    - name: Install ansible inside container
+      apt:
+        name: ansible
+        state: present
+        update_cache: yes
+
+    - name: Run main playbook
+      command: ansible-playbook /tmp/project/playbook.yml -i localhost, -c local

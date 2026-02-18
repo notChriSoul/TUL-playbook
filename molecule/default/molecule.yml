@@ -1,0 +1,22 @@
+---
+driver:
+  name: docker
+
+platforms:
+  - name: debian
+    image: debian:trixie
+    command: sleep infinity
+
+provisioner:
+  name: ansible
+  playbooks:
+    converge: converge.yml
+
+verifier:
+  name: ansible
+
+scenario:
+  test_sequence:
+    - destroy
+    - create
+    - converge
